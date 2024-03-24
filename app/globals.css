@@ -27,12 +27,19 @@ body {
 }
 .search-bar {
   width: 100%;
-  max-width: 400px; /* Atur sesuai kebutuhan Anda */
+  max-width: 600px; /* Atur sesuai kebutuhan Anda */
   margin: 0 auto;
   position: relative;
-  background-color: black;
+  background-color: transparent;
   border: none;
+  padding-left: 4px;
+  padding-right: 4px;
   border-bottom: 2px solid red; 
+  
+}
+
+.search-bar::placeholder {
+color: white;
 }
 
 .search-input {

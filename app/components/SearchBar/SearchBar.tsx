@@ -87,7 +87,7 @@ export default function Search(): JSX.Element {
         value={query}
         onChange={handleSearch}
         placeholder="Cari lagu..."
-        className="search-bar text-white px-4"
+        className="search-bar text-white px-4 mx-4"
       />
       {query.trim() !== "" && (
         <div className="mt-4">
@@ -107,7 +107,9 @@ export default function Search(): JSX.Element {
       {(selectedLyrics || lyrics) && (
         <div className="mt-8 mb-10">
           <h2 className="text-center pb-4">{title}</h2>
-          <pre>{selectedLyrics || lyrics}</pre>
+          <pre className="whitespace-pre-wrap px-4">
+            {selectedLyrics || lyrics}
+          </pre>
           <div className="flex justify-center">
             <button
               onClick={handleCopyClick}
