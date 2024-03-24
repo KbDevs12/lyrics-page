@@ -25,6 +25,37 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+.search-bar {
+  width: 100%;
+  max-width: 400px; /* Atur sesuai kebutuhan Anda */
+  margin: 0 auto;
+  position: relative;
+  background-color: black;
+  border: none;
+  border-bottom: 2px solid red; 
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 16px;
+  border: none;
+  border-bottom: 2px solid red; /* Garis bawah merah */
+  background-color: rgba(255, 255, 255, 0.5); /* Background transparan */
+  color: black;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: rgba(0, 0, 0, 0.5); /* Warna placeholder */
+}
+
+@media (max-width: 768px) {
+  .search-bar {
+    max-width: 100%;
+    padding: 0 16px;
+  }
+}
 
 @layer utilities {
   .text-balance {
