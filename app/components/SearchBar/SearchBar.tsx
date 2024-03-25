@@ -15,10 +15,19 @@ export default function Search(): JSX.Element {
   const [title, setTitle] = useState<string>("");
   const [copyButtonText, setCopyButtonText] = useState<string>("Salin Lirik");
 
+  const [cachedResults, setCachedResults] = useState<Record<string, Song[]>>(
+    {}
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       if (query.trim() === "") {
         setResults([]);
+        return;
+      }
+
+      if (cachedResults[query]) {
+        setResults(cachedResults[query]);
         return;
       }
 
@@ -45,7 +54,7 @@ export default function Search(): JSX.Element {
         `https://api.lyrics.ovh/v1/${artist}/${title}`
       );
       const data = await response.json();
-      console.table(data);
+
       let lyrics = data.lyrics;
       setCopyButtonText("Salin Lirik");
 
@@ -87,7 +96,7 @@ export default function Search(): JSX.Element {
         value={query}
         onChange={handleSearch}
         placeholder="Cari lagu..."
-        className="search-bar text-white px-4 mx-4"
+        className="search-bar text-white px-8 mx-8"
       />
       {query.trim() !== "" && (
         <div className="mt-4">
@@ -99,14 +108,14 @@ export default function Search(): JSX.Element {
               }
               className="cursor-pointer p-2 rounded-lg hover:bg-red-600"
             >
-              <p>{`${result.title} - ${result.artist.name}`}</p>
+              <p className="border-b-2 border-b-red-600 w-80 text-center pt-3">{`${result.title} - ${result.artist.name}`}</p>
             </div>
           ))}
         </div>
       )}
       {(selectedLyrics || lyrics) && (
         <div className="mt-8 mb-10">
-          <h2 className="text-center pb-4">{title}</h2>
+          <h2 className="text-center pb-6 text-xl">{title}</h2>
           <pre className="whitespace-pre-wrap px-4">
             {selectedLyrics || lyrics}
           </pre>

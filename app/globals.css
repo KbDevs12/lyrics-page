@@ -18,43 +18,21 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: black;
 }
 .search-bar {
-  width: 100%;
-  max-width: 600px; /* Atur sesuai kebutuhan Anda */
+  width: 80%;
+  max-width: 600px; 
   margin: 0 auto;
   position: relative;
   background-color: transparent;
   border: none;
-  padding-left: 4px;
-  padding-right: 4px;
   border-bottom: 2px solid red; 
   
 }
 
 .search-bar::placeholder {
-color: white;
-}
-
-.search-input {
-  width: 100%;
-  padding: 8px 16px;
-  border: none;
-  border-bottom: 2px solid red; /* Garis bawah merah */
-  background-color: rgba(255, 255, 255, 0.5); /* Background transparan */
-  color: black;
-  font-size: 16px;
-  outline: none;
-}
-
-.search-input::placeholder {
-  color: rgba(0, 0, 0, 0.5); /* Warna placeholder */
+color: grey;
 }
 
 @media (max-width: 768px) {
@@ -68,4 +46,25 @@ color: white;
   .text-balance {
     text-wrap: balance;
   }
+}
+
+body ::selection {
+  color: red;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: red;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
