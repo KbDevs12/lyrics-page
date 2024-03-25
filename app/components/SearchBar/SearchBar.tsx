@@ -1,10 +1,12 @@
 "use client";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 interface Song {
   id: number;
   title: string;
   artist: { name: string };
+  album: { cover_medium: string };
 }
 
 export default function Search(): JSX.Element {
@@ -13,6 +15,8 @@ export default function Search(): JSX.Element {
   const [lyrics, setLyrics] = useState<string>("");
   const [selectedLyrics, setSelectedLyrics] = useState<string>("");
   const [title, setTitle] = useState<string>("");
+  const [selectedImage, setSelectedImage] = useState<string>("");
+
   const [copyButtonText, setCopyButtonText] = useState<string>("Salin Lirik");
 
   const [cachedResults, setCachedResults] = useState<Record<string, Song[]>>(
@@ -20,8 +24,10 @@ export default function Search(): JSX.Element {
   );
 
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+
     const fetchData = async () => {
-      if (query.trim() === "") {
+      if (query.trim().length < 2) {
         setResults([]);
         return;
       }
@@ -41,11 +47,20 @@ export default function Search(): JSX.Element {
       }
     };
 
-    fetchData();
-  }, [query]);
+    if (query.trim().length >= 2) {
+      timeoutId = setTimeout(() => {
+        fetchData();
+      }, 1000);
+    } else {
+      setResults([]);
+    }
+
+    return () => clearTimeout(timeoutId);
+  }, [query, cachedResults]);
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(event.target.value);
+    const value = event.target.value;
+    setQuery(value);
   };
 
   const fetchLyrics = async (artist: string, title: string) => {
@@ -76,8 +91,9 @@ export default function Search(): JSX.Element {
     }
   };
 
-  const handleResultClick = (artist: string, title: string) => {
+  const handleResultClick = (artist: string, title: string, cover: string) => {
     fetchLyrics(artist, title);
+    setSelectedImage(cover);
   };
 
   const handleCopyClick = () => {
@@ -104,17 +120,41 @@ export default function Search(): JSX.Element {
             <div
               key={result.id}
               onClick={() =>
-                handleResultClick(result.artist.name, result.title)
+                handleResultClick(
+                  result.artist.name,
+                  result.title,
+                  result.album.cover_medium
+                )
               }
-              className="cursor-pointer p-2 rounded-lg hover:bg-red-600"
+              className="border-b-2 border-b-red-600 cursor-pointer p-2 rounded-lg hover:bg-red-600 pb-2 mb-4 mx-4"
             >
-              <p className="border-b-2 border-b-red-600 w-80 text-center pt-3">{`${result.title} - ${result.artist.name}`}</p>
+              <div className="flex flex-row pb-4 px-4">
+                <Image
+                  width={100}
+                  height={100}
+                  src={result.album.cover_medium}
+                  alt=""
+                />
+                <div className="w-80 text-left pt-3 px-4">
+                  <p className="text-xl">{`${result.title}`}</p>
+                  <p className=" text-gray-500">{`${result.artist.name}`}</p>
+                </div>
+              </div>
             </div>
           ))}
         </div>
       )}
       {(selectedLyrics || lyrics) && (
         <div className="mt-8 mb-10">
+          {selectedImage && (
+            <Image
+              width={100}
+              height={100}
+              src={selectedImage}
+              alt=""
+              className="mx-auto pb-2 rounded-lg"
+            />
+          )}
           <h2 className="text-center pb-6 text-xl">{title}</h2>
           <pre className="whitespace-pre-wrap px-4">
             {selectedLyrics || lyrics}
