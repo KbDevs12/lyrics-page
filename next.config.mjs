@@ -4,6 +4,9 @@ const nextConfig = {
         remotePatterns: [
             {
                 hostname: "cdn-images.dzcdn.net"
+            },
+            {
+                hostname: "e-cdns-images.dzcdn.net"
             }
         ]
     }
