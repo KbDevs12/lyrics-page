@@ -18,7 +18,7 @@ const NoLirik = () => {
               <div className="error__message message">
                 <h1 className="message__title">Lyrics Not Found</h1>
                 <p className="message__text">
-                  We're sorry, the page you were looking for isn't found here.
+                  We`re sorry, the page you were looking for i`snt found here.
                   The link you followed may either be broken or no longer
                   exists. Please try again, or take a look at our.
                 </p>
