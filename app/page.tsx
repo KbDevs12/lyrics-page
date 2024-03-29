@@ -1,4 +1,3 @@
-import { LyricsProvider } from "./actions/LyricsContex";
 import Footer from "./components/Footer/Footer";
 import Header from "./components/Header/Header";
 import Search from "./components/SearchBar/SearchBar";
