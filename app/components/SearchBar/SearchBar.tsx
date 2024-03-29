@@ -217,34 +217,35 @@ export default function Search(): JSX.Element {
             <div className=" border-t-2 border-t-red-600 pt-4 pb-20 px-4 mt-40">
               <h2 className="pb-5 text-xl">Musik Terpopuler: </h2>
               <div className="grid md:grid-cols-4 grid-cols-2 gap-4 px-4 rounded-md">
-                {data.map((track: any) => (
-                  <div
-                    key={track.id}
-                    className="relative overflow-hidden transition duration-300 transform hover:-translate-y-1"
-                    onClick={() =>
-                      handleResultClick(
-                        track.artist.name,
-                        track.title,
-                        track.album.cover_medium
-                      )
-                    }
-                  >
-                    <div className="flex-1"></div>
-                    <div className="flex flex-col items-center relative">
-                      <Image
-                        src={track.album.cover_medium}
-                        alt={track.album.title}
-                        height={300}
-                        width={300}
-                        className="rounded-md"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-red-600 max-w-full bg-opacity-70">
-                        <p className="text-center">{track.title}</p>
-                        <p className="text-center">{track.artist.name}</p>
+                {data &&
+                  data.map((track: any) => (
+                    <div
+                      key={track.id}
+                      className="relative overflow-hidden transition duration-300 transform hover:-translate-y-1"
+                      onClick={() =>
+                        handleResultClick(
+                          track.artist.name,
+                          track.title,
+                          track.album.cover_medium
+                        )
+                      }
+                    >
+                      <div className="flex-1"></div>
+                      <div className="flex flex-col items-center relative">
+                        <Image
+                          src={track.album.cover_medium}
+                          alt={track.album.title}
+                          height={300}
+                          width={300}
+                          className="rounded-md"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-red-600 max-w-full bg-opacity-70">
+                          <p className="text-center">{track.title}</p>
+                          <p className="text-center">{track.artist.name}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
               </div>
             </div>
           </div>
